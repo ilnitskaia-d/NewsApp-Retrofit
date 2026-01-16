@@ -48,10 +48,8 @@ class HeadlinesFragment : Fragment(R.layout.fragment_headlines) {
         setupHeadlinesRecycler()
 
         newsAdapter.setOnItemClickListener {
-            val bundle = Bundle().apply {
-                putSerializable("article", it)
-            }
-
+            val bundle = Bundle()
+            bundle.putSerializable("article", it)
             findNavController().navigate(R.id.action_headlinesFragment_to_articleFragment, bundle)
         }
 
@@ -71,14 +69,14 @@ class HeadlinesFragment : Fragment(R.layout.fragment_headlines) {
                     hideProgressBar()
                     hideErrorMessage()
                     response.data?.let{ newsResponse ->
-                        {
+
                             newsAdapter.differ.submitList(newsResponse.articles.toList())
                             val totalPages = newsResponse.totalResults / Constants.QUERY_PAGE_SIZE + 2
                             isLastPage = newsViewModel.headlinesPage == totalPages
                             if(isLastPage){
                                 binding.recyclerHeadlines.setPadding(0,0,0,0)
                             }
-                        }
+
                     }
                 }
             }

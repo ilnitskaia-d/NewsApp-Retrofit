@@ -175,7 +175,6 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             adapter = newsAdapter
             layoutManager = LinearLayoutManager(activity)
             addOnScrollListener(this@SearchFragment.scrollListener)
-
         }
     }
 
