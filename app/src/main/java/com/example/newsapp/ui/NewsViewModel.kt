@@ -70,7 +70,7 @@ class NewsViewModel(app: Application, val newsRepository: NewsRepository): Andro
                     val newArticle = resultResponse.articles
                     oldArticle?.addAll(newArticle)
                 }
-                return Resource.Success(headlinesResponse ?: resultResponse)
+                return Resource.Success(searchNewsResponse ?: resultResponse)
             }
         }
         return Resource.Error(response.message())

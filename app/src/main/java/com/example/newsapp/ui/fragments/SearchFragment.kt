@@ -42,7 +42,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
         binding = FragmentSearchBinding.bind(view)
 
-        itemSearchError = view.findViewById(R.id.itemHeadlinesError)
+        itemSearchError = view.findViewById(R.id.itemSearchError)
 
         val inflater = requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val view:View = inflater.inflate(R.layout.item_error, null)
@@ -90,14 +90,14 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                     hideProgressBar()
                     hideErrorMessage()
                     response.data?.let{ newsResponse ->
-                        {
+
                             newsAdapter.differ.submitList(newsResponse.articles.toList())
                             val totalPages = newsResponse.totalResults / Constants.QUERY_PAGE_SIZE + 2
                             isLastPage = newsViewModel.searchNewsPage == totalPages
                             if(isLastPage){
                                 binding.recyclerSearch.setPadding(0,0,0,0)
                             }
-                        }
+
                     }
                 }
             }
@@ -154,7 +154,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             val isTotalMoreThanVisible = totalItemCount >= Constants.QUERY_PAGE_SIZE
             val shouldPaginate = isNoErrors && isNotLoadingAndNotLastPage && isAtLastItem && isNotAtBeginning && isTotalMoreThanVisible
             if(shouldPaginate){
-                newsViewModel.getHeadlines("us")
+                newsViewModel.searchNews(binding.searchEdit.text.toString())
                 isScrolling = false
             }
         }
